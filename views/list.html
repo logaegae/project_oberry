@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+		body {
+		    /* background-image: url("/admin/html/img/Beenzino.jpeg"); */
+		    background-size: 100%;
+		}
+		
+		h1{
+			text-align:center;
+			color:black;
+		}
+	
+		div>a>img{
+		 width:300px;
+		 height:300px;
+		}
+		
+		.wrapper{
+			outline:1px blue solid;
+			width:1000px;
+			margin:0 auto;
+		}
+		
+		.list{
+			display:inline-block;
+		}
+
+		
+	</style>
+</head>
+<body>
+	<h1>리스트</h1>
+	<!-- <h2>{{JSON.stringify(list)}}</h2> -->
+	
+	<div class="wrapper">
+		{% for item in list %}
+			<div class="list">
+			<p><b>제품명:{{item.productName}}</b></p>
+			<p><b>임대비용:{{item.price}}</b></p>
+			<a href="/product/detail/{{item.productId}}"><img src="{{item.thumbPath}}" alt="" /></a>
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="content">
+    <section class="parallax-section header-section">
+        <div class="bg bg-parallax" style="background-image:url(images/bg/news.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+        <div class="overlay"></div>
+        <div class="container">
+            <h2>오베리굿 소식</h2>
+            <!-- <h3>새로운 소식과 이벤트</h3> -->
+        </div>
+    </section>
+    <!--================= Section post's ================-->
+    <section class="align-text">
+        <div class="triangle-decor"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="defualt-table">
+                        <table class="table table-border checkout-table notice_table">
+                            <thead>
+                                <tr>
+                                    <th class="table_center">#</th>
+                                    <th class="table_left">제목</th>
+                                    <th class="table_center">작성일</th>
+                                    <th class="hidden-xs table_center">작성자</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in list %}
+                                <tr>
+                                    <td class="table_center">{{item.boardSeq}}</td>
+                                    <td class="table_left"><a href="notice_sub.html?boardSeq={{item.boardSeq}}">{{item.title}}</a></td>
+                                    <td class="table_center">{{item.registDate | date('Y-m-d')}}</td>
+                                    <td class="hidden-xs table_center">{{item.writer}}</td>
+                                </tr>
+							{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--pagination-->
+                    
+
+                    <div class="content-pagination" style="text-align:center">
+	                    {% set totalPage = Math.floor(totalCount / pageSize) %}
+	                    {% if totalCount % pageSize > 0 %}
+	                    	{% set totalPage = totalPage + 1%}
+	                    {% endif %}
+	                    
+	                    {% set num =  currentPage-1  %}
+	                    {% set startPage = Math.floor(num / 10) * 10 + 1%}
+						{% set endPage = startPage + 10 - 1 %}
+	                    {% if endPage  > totalPage %}
+	                    	{% set endPage = totalPage %}
+	                    {% endif %}
+                    	{% if currentPage > 1 %}
+                        	<a href="?page={{currentPage-1}}" class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+                        {% else %}
+                     	 	<a class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+                        {% endif %}
+                        
+                        {% for i in Array(endPage-startPage+1) %}
+                        	{% set page =  startPage + loop.index-1 %}
+                       		{% if currentPage == page %}
+                        		<a href="?page={{page}}" class="current-page transition">{{page}}</a>
+                        	{% else %}
+                        		<a href="?page={{page}}" class="transition">{{page}}</a>
+                        	{% endif %}
+                        {% endfor %}
+                                                
+                        {% if endPage < totalPage %}
+                      		<a href="?page={{currentPage+1}}" class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+                        {% else %}
+                     		<a class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- section end -->
+</div>
+
+
+{% endblock %}

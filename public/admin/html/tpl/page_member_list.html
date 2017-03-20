@@ -1,0 +1,104 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.searchText	= $stateParams.searchText;
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+
+		$scope.loadData = function () {
+			$http({
+				method : "POST",
+				url : "/admin/api/member",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize,
+					searchText : $stateParams.searchText
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		};
+
+		$scope.pageChanged = function (idx){
+			$location.path('/app/member/list').search({page: $scope.data.currentPage,searchText: $scope.searchText});
+		};
+
+		$scope.search = function () {
+			$location.path('/app/member/list').search({searchText: $scope.searchText});
+		}
+
+		$scope.pageSizeChanged = function () {
+			$rootScope.pageSize =  $scope.pageSize;
+			$scope.loadData();
+		};
+
+
+	}]
+);
+
+
+</script>
+
+<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+	<div class="panel-heading">회원목록</div>
+	<div class="row wrapper">
+		<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 pull-right">
+			<div class="input-group">
+				<input type="text" class="input-sm form-control" ng-model="searchText"
+					placeholder="검색어를 입력하세요."> <span class="input-group-btn">
+					<button class="btn btn-sm btn-default" type="button" ng-click="search()">검색</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row wrapper" ng-show="data.totalCount">
+		<div class="col-sm-6 text-left">
+			총 {{data.totalCount}} 건
+		</div>
+		<div class="col-sm-6 text-right">
+			<select class="input-sm form-control w-sm inline v-middle" ng-model="pageSize" ng-change="pageSizeChanged()">
+				<option value="10">10개 보기</option>
+				<option value="20">20개 보기</option>
+				<option value="50">50개 보기</option>
+				<option value="100">100개 보기</option>
+			</select>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped b-t b-light">
+			<thead>
+				<tr>
+					<th width="10%" class="text-center">No</th>
+					<th width="10%" class="text-left">성명</th>
+					<th width="20%" class="text-left">아이디</th>
+					<th width="20%" class="text-left">전화번호</th>
+					<th width="20%" class="text-left">이메일</th>
+					<th width="10%" class="text-center">최근접속일시</th>
+					<th width="10%" class="text-center">가입일시</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in data.list">
+					<td class="text-center">{{data.totalCount - Math.floor((data.currentPage-1) * pageSize) - $index}}</td>
+					<td class="text-left"><a href="#/app/member/detail/{{item.userId}}">{{item.name}}</a></td>
+					<td class="text-left">{{item.userId}}</td>
+					<td class="text-left">{{item.hp}}</td>
+					<td class="text-left">{{item.email}}</td>
+					<td class="text-center">{{item.lastLoginDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer class="panel-footer">
+		<div class="row">
+			<div class="col-sm-12 text-center">
+			    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+			</div>
+
+		</div>
+	</footer>
+</div>

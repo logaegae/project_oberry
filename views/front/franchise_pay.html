@@ -1,0 +1,39 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/fran.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>오베리굿 프렌차이즈</h2>
+                            <!-- <h3>모던한 분위기에서 건강을 생각합니다.</h3> -->
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========cart_confirm -section ===================-->
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="join_confirm">
+                                  <div class="bold-separator personal_h3">
+                                      <h3 class="">예상 창업 비용</h3>
+                                  </div>
+                                    <div class="confirm_text">
+                                        <h5 style="font-size:26px"><strong>{{body.name}}</strong>님의 예상 창업 비용은</h5>
+                                        <h4>약 <strong>{{(parseInt(body.square) * 310 + 700) | number}}</strong> 만원입니다.</h4>
+                                        <div class="separator color-separator"></div>
+                                        <p>본 개설비용은 전포 구입 비용과 별도 비용이 제외된 비용입니다.
+                                            <br>보다 자세한 사항은 국번없이 <strong>1670-8797</strong>로 연락주세요.</p>
+                                    </div>
+                                    <div class="join_a_tag">
+                                        <a href="franchise.html" class="btn">확인</a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+
+                </div>
+    {% endblock %}

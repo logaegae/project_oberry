@@ -1,0 +1,127 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section" style="padding:220px 0 150px">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/slide_2.jpg);" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>회 원 가 입</h2>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========join_info -section ===================-->
+                    <section style="padding-top:70px">
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="join_header join_nav_b">
+                                    <div class="join_header_step">
+                                        <!-- <strong>약관동의</strong> -->
+                                        <span class="flaticon-interface"></span>
+                                    </div>
+                                    <span class="login_dot join_nav_dot"></span>
+                                    <div class="join_header_step step_personal step_on">
+                                        <!-- <strong>회원정보입력</strong> -->
+                                        <span class="flaticon-pencil"></span>
+                                    </div>
+                                    <span class="login_dot join_nav_dot"></span>
+                                    <div class="join_header_step">
+                                        <!-- <strong>가입완료</strong> -->
+                                        <span class="flaticon-interface-1"></span>
+                                    </div>
+                                </div>
+                                <div class="reservation-form-holder personal_info">
+                                        <div class="reservation-form">
+                                            <div class="bold-separator personal_h3">
+                                                <h3 class="">회원정보입력</h3>
+                                            </div>
+                                            <!-- <h3 class="col-md-offset-2" style="text-align:left; margin-bottom:20px">회원정보입력</h3> -->
+                                            <form method="post" action="/front/auth/join" id="reservation-form">
+                                                <div class="row info_box">
+                                                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                        <!--name-->
+                                                        <input name="name" type="text" id="userName" onclick="" value="" placeholder="이름" required="required">
+                                                    </div>
+                                                    <div class="col-md-6 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8 info_box_a">
+                                                        <!--id-->
+                                                        <input name="userId" type="text" id="userId" onclick="" value="" placeholder="아이디" required="required">
+                                                        <input name="checkUserId" type="hidden" id="checkUserId" onclick="" value="" placeholder="아이디"  maxlength="20">
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-3 col-xs-3 info_box_b">
+                                                        <button type="button" class="btn btn_a" id="buttonCheck">중복확인</button>
+                                                    </div>
+                                                    <div class="col-md-4 col-md-offset-2  col-sm-5 col-sm-offset-1 col-xs-12">
+                                                        <!-- pw -->
+                                                        <input name="pwd" type="password" id="userPw" onclick="" value="" placeholder="비밀번호" required="required"  maxlength="20">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-5 col-xs-12">
+                                                        <!-- pw_confirm -->
+                                                        <input name="pwd_check" type="password" id="userPwConfirm" onclick="" value="" placeholder="비밀번호 확인" required="required"  maxlength="20">
+                                                    </div>
+                                                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                        <!--phone-->
+                                                        <input name="hp" type="tel" id="userPhone" onclick="" value="" placeholder="핸드폰번호 (*번호입력시 -는 빼주세요)" required="required"  maxlength="11">
+                                                    </div>
+                                                    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                        <!--mail-->
+                                                        <input name="email" type="email" id="userEmail" onclick="" value="" placeholder="이메일 주소"  maxlength="50" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="join_a_tag">
+                                                    <!-- <a href="join_confirm.html" class="btn">다음</a> -->
+                                                    <button type="submit" class="btn">다음</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- join_info end -->
+                </div>
+
+
+<script type="text/javascript">
+
+	$("#buttonCheck").click(function () {
+		$.ajax({
+			url: "/front/auth/checkId",
+			type: "POST",
+			data: {
+				userId : $("#userId").val()
+			},
+			success:function(data){
+				if(data.checked == false) {
+					alert("사용하실 수 있는 아이디입니다.");
+					$("#checkUserId").val($("#userId").val());
+				} else {
+					alert("사용하실 수 없는 아이디입니다.");
+				}
+			},
+			fail : function(err) {
+				alert(err);
+			}
+		});
+
+	});
+
+    $("#reservation-form").submit(function() {
+
+    	if($("#userId").val() != $("#checkUserId").val()) {
+    		alert("아이디 중복확인을 해주십시요.");
+    		return false;
+    	}
+
+    	if($("input[name='pwd']").val() != $("input[name='pwd_check']").val()) {
+    		alert("비밀번호를 확인해 주십시요.");
+    		return false;
+    	}
+
+
+        return true;
+    });
+
+</script>
+
+{% endblock %}

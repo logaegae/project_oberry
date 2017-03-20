@@ -1,0 +1,390 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <section class="parallax-section header-section">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/showping.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>
+                            	오베리굿 쇼핑
+                            </h2>
+                            <!-- <h3>오베리굿을 집에서도 만나보세요</h3> -->
+                        </div>
+                    </section>
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <div class="product-meta">
+                                <span class="posted_in">Category : <a href="#">Other</a>  , <a href="#">Sale</a></span>
+                            </div>
+                            <div class="product-item-holder">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="product-image">
+                                            <!-- <div class="customNavigation">
+                                                <a class="next-slide transition"><i class="fa fa-angle-right"></i></a>
+                                                <a class="prev-slide transition"><i class="fa fa-angle-left"></i></a>
+                                            </div> -->
+                                            <div  class="owl-carousel product-slider">
+                                                <div><img src="{{detail.thumbPath}}" alt=""  class="respimg"></div>
+                                                <!-- <div><img src="{{detail.thumbPath}}" alt=""  class="respimg"></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="product-item">
+                                            <h2 class="product_title">{{detail.productName}}</h2>
+                                            <div class="pr-opt">
+                                                <div class="product-item-price"><span>￦</span>{{detail.price  | number}}</div>
+                                                <!--
+                                                <div class="product-rating">
+                                                    <span>( 2 customer reviews )</span>
+                                                    <ul>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+
+                                                 -->
+                                            </div>
+                                            <div id="tabs-container">
+                                                <ul class="tabs-menu">
+                                                    <li class="current"><a href="#tab-1">상품소개</a></li>
+                                                    <li><a href="#tab-2">후기</a></li>
+                                                </ul>
+                                                <div class="tab">
+                                                    <div id="tab-1" class="tab-content">
+                                                        {{detail.content | safe }}
+                                                    </div>
+                                                    <div id="tab-2" class="tab-content">
+                                                        <div id="comments">
+                                                            <!--title-->
+                                                            <h6 id="comments-title">댓글 <span>({{reviews.length}})</span></h6>
+                                                            <ul class="commentlist clearafix">
+
+                                                            	{% for review in reviews %}
+
+
+                                                                <li class="comment">
+                                                                    <div class="comment-body">
+                                                                        <div class="comment-meta">
+                                                                            <h6>{{review.registDate | date('Y-m-d')}} / {{review.userId}}</h6>
+                                                                        </div>
+                                                                        <p>{{review.content}}</p>
+                                                                    </div>
+                                                                </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                            <div class="clearfix"></div>
+                                                            <div id="respond" class="clearafix">
+                                                                <h6 id="reply-title">댓글</h6>
+                                                                <div class="comment-reply-form clearfix">
+                                                                    <form action="/front/review" method="post" id="commentform" class="form-horizontal" name="commentform">
+                                                                        <div class="comment-form-comment control-group">
+                                                                            <div class="controls">
+                                                                                <textarea id="content" name="content" cols="50" rows="8" aria-required="true" placeholder="내용을 입력하세요." required="required"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-submit">
+                                                                            <div class="controls">
+                                                                                <button class="transition button" type="submit">댓글 달기</button>
+                                                                                <input type='hidden' name='productId' value='{{detail.productId}}'>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <!--end respond-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="section-title">
+                                              <h4 style="font-size18px; color:#C59D5F;">* 공지사항 *</h4>
+                                              <br />
+                                              <span style="font-size:16px">현재 쇼핑몰 시스템 사정으로 인하여 온라인 결제가 어려우니 전화로 문의해 주시기 바랍니다.
+                                                <br /> <strong style="font-weight:400">전화문의. 1670-8797</strong>
+                                              </span>
+                                            </div>
+                                            <!-- <form class="quantity" id="quantityForm" method="post" action="detail.html">
+                                            	<input type="hidden" name="productId" value="{{detail.productId}}">
+                                                <input type="button" value="-" class="minus" id="minusCart">
+                                                <input type="text"  name="quantity" value="1" title="Qty" class="qty" size="4" id="quantity">
+                                                <input type="button" value="+" class="plus" id="plusCart"> -->
+                                                <!-- <a href="addCart?productId={{detail.productId}}&price={{detail.price}}">Add to Cart</a> -->
+                                                <!-- <a href="javascript:void(0);" id="addCart">장바구니 담기</a> -->
+                                                <!-- <a href="cart.html" id="pay" productId="{{detail.productId}}" productName="{{detail.productName}}" price="{{detail.price}}" >구매하기</a> -->
+                                                <!-- <button type="button" class="btn" id="addCart">장바구니 담기</button>
+                                                <button type="submit" class="btn" id="pay" >구매하기</button>
+                                            </form> -->
+                                        </div>
+                                    </div>
+                                    <div >
+
+										{{detail.detail | safe }}
+
+                                    </div>
+
+                                    <div class="bold-separator">
+                                        <span></span>
+                                    </div>
+                                    <div class="section-title">
+                                        <h4 style="font-size:18px">상품정보</h4>
+
+                                        <div class="inner">
+                                            <div class="return_exchange table-responsive">
+                                                <table cellspacing="0" border="1" class="tb_view2 tb_view2_v2 table">
+                            					<caption style="text-indent:-999999px"><span class="blind">상품정보 리스트</span></caption>
+                            					<colgroup>
+                            						<col width="30%">
+                            						<col>
+                            					</colgroup>
+                            					<tbody>
+                            						<tr>
+        												<th scope="row"><span class="bu">포장단위별 용량(중량) / 포장단위별 수량 / 포장단위별 크기</span></th>
+        												<td colspan="3">
+                                                            <span class="inner">포장단위별 용량(중량) : 상품상세 참조</span>
+                                                            <span class="inner">포장단위별 수량 :  상품상세 참조</span>
+                                                            <span class="inner">포장단위별 크기 :  상품상세 참조</span>
+                                                        </td>
+        											</tr>
+        											<!-- <tr>
+        												<th scope="row"><span class="bu">포장단위별 수량</span></th>
+
+        											</tr>
+        											<tr>
+        												<th scope="row"><span class="bu">포장단위별 크기</span></th>
+
+        											</tr> -->
+
+                            						<tr>
+        												<th scope="row"><span class="bu">제조연월일(포장일 또는 생산연도) / 유통기한 또는 품질유지기한</span></th>
+        												<td colspan="3">
+                                                            <span class="inner">제조연월일(포장일 또는 생산연도) : 별도표시일</span>
+                                                            <span class="inner">유통기한 또는 품질유지기한 : 상품상세 참조</span>
+                                                        </td>
+
+        											</tr>
+                            						<tr>
+                            							<th scope="row"><span class="block">생산자</span></th>
+                            								<td colspan="3"><span class="inner">윤태홍</span></td>
+                            						</tr>
+                            						<tr>
+                            							<th scope="row"><span class="block">관련법상 표시사항</span></th>
+                            								<td colspan="3"><span class="inner">상품상세 참조</span></td>
+                            						</tr>
+                            						<tr>
+                            							<th scope="row"><span class="block">상품구성</span></th>
+                            								<td colspan="3"><span class="inner">상품상세 참조</span></td>
+                            						</tr>
+                            						<tr>
+                            							<th scope="row"><span class="block">보관방법 또는 취급방법</span></th>
+                            								<td colspan="3"><span class="inner">직사광선과 고온다습한 곳을 피하여 건냉한 곳에 보관하십시오</span></td>
+                            						</tr>
+                            						<tr>
+                            							<th scope="row"><span class="block">소비자 상담 관련 전화번호</span></th>
+                            								<td colspan="3"><span class="inner">031-406-1522</span></td>
+                            						</tr>
+
+                            					</tbody>
+                            				</table>
+                                    		</div>
+                                        </div>
+                                    </div>
+                                    <div class="section-title">
+                                        <h4 style="font-size:18px">거래조건에 관한 정보</h4>
+
+                                        <div class="inner">
+                                            <div class="return_exchange">
+                                                <table cellspacing="0" border="1" class="tb_view2 tb_view2_v2">
+                                					<caption style="text-indent:-999999px"><span class="blind">거래조건에 관한 정보 리스트</span></caption>
+                                					<colgroup>
+                                						<col width="45%">
+                                						<col>
+                                					</colgroup>
+                                					<tbody>
+                                							<tr>
+                                								<th scope="row"><span class="block">재화등의 배송방법에 관한 정보</span></th>
+                                								<td><span class="inner">택배</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">주문 이후 예상되는 배송기간</span></th>
+                                								<td><span class="inner">대금 지급일로부터 3일 이내에 발송</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">제품하자가 아닌 소비자의 단순변심, 착오구매에 따른 청약철회 시 소비자가 부담하는 반품비용 등에 관한 정보</span></th>
+                                								<td><span class="inner">편도 3000원 (최초 배송비 무료인 경우 6000원 부과)</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">제품하자가 아닌 소비자의 단순변심, 착오구매에 따른 청약철회가 불가능한 경우 그 구체적 사유와 근거</span></th>
+                                								<td><span class="inner">전자상거래등에서의소비자보호에관한법률 등에 의한 청약철회 제한 사유에 해당하는 경우 및 기타 객관적으로 이에 준하는 것으로 인정되는 경우 청약철회가 제한될 수 있습니다.</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">재화등의 교환·반품·보증 조건 및 품질보증기준</span></th>
+                                								<td><span class="inner">소비자분쟁해결기준(공정거래위원회 고시) 및 관계법령에 따릅니다.</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">재화등의 A/S 관련 전화번호</span></th>
+                                								<td><span class="inner">031-406-1522</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">대금을 환불받기 위한 방법과 환불이 지연될 경우 지연에 따른 배상금을 지급받을 수 있다는 사실 및 배상금 지급의 구체적 조건 및 절차</span></th>
+                                								<td><span class="inner">주문취소 및 대금의 환불은 마이페이지에서 신청할 수 있으며, 전자상거래 등에서의 소비자보호에 관한 법률에 따라 소비자의 청약철회 후 판매자가 재화 등을 반환 받은 날로부터 3영업일 이내에 지급받은 대금의 환급을 정당한 사유 없이 지연하는 때에는 소비자는 지연기간에 대해서 연 20%의 지연배상금을 판매자에게 청구할 수 있습니다.</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">소비자피해보상의 처리, 재화등에 대한 불만 처리 및 소비자와 사업자 사이의 분쟁처리에 관한 사항</span></th>
+                                								<td><span class="inner">소비자분쟁해결기준(공정거래위원회 고시) 및 관계법령에 따릅니다.</span></td>
+                                							</tr>
+                                							<tr>
+                                								<th scope="row"><span class="block">거래에 관한 약관의 내용 또는 확인할 수 있는 방법</span></th>
+                                								<td><span class="inner">상품상세 페이지 및 페이지 하단의 이용약관 링크를 통해 확인할 수 있습니다.</span></td>
+                                							</tr>
+                                					</tbody>
+                                				</table>
+                                    		</div>
+                                        </div>
+                                    </div>
+                                    <div class="bold-separator">
+                                        <span></span>
+                                    </div>
+                                    <div class="section-title">
+                                        <h4 style="font-size:24px">반품/교환정보</h4>
+
+                                        <div class="inner">
+                                            <div class="return_exchange">
+                                    			<dl>
+                                    			<dt>오베리굿 반품/교환 안내<em>반품/교환에 관한 일반적인 사항은 판매자 제시사항보다 관계법령이 우선합니다.</em></dt>
+                                                <dd>
+                                    				<ol>
+                                    				<li><span class="num">판매자 지정택배사 </span><em>CJ대한통운</em></li>
+                                    				<li><span class="num">반품배송비</span><em>편도 3,000원(최초 배송비 무료인 경우 6,000원 부과)</em></li>
+                                                    <li><span class="num">교환배송비</span><em>6,000원</em></li>
+                                                    <li><span class="num">보내실 곳</span><em>경기도 군포시 대야2로 35 천봉프라자 1층 103호 435060</em></li>
+                                    				</ol>
+                                    			</dd>
+
+                                    			<dt>반품/교환 사유에 따른 요청 가능 기간<em>반품 시 먼저 판매자와 연락하셔서 반품사유, 택배사, 배송비, 반품지 주소 등을 협의하신 후 반품상품을 발송해 주시기 바랍니다.</em></dt>
+
+                                    			<dd>
+                                    				<ol>
+                                    				<li><span class="num">1. </span>구매자 단순 변심은 상품 수령 후 7일 이내 <em>(구매자 반품배송비 부담)</em></li>
+                                    				<li><span class="num">2. </span>표시/광고와 상이, 상품하자의 경우 상품 수령 후 3개월 이내 혹은 표시/광고와 다른 사실을 안 날로부터 30일 이내.<br>둘 중 하나 경과 시 반품/교환 불가 <em>(판매자 반품배송비 부담)</em></li>
+                                    				</ol>
+                                    			</dd>
+                                    			<dt>반품/교환 불가능 사유<em>아래와 같은 경우 반품/교환이 불가능합니다.</em></dt>
+                                    			<dd>
+                                    				<ol>
+                                    				<li><span class="num">1. </span>반품요청기간이 지난 경우</li>
+                                    				<li><span class="num">2. </span>구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 <em>(단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)</em></li>
+                                    				<li><span class="num">3. </span>포장을 개봉하였으나 포장이 훼손되어 상품가치가 현저히 상실된 경우 <em>(예: 식품, 화장품, 향수류, 음반 등)</em></li>
+                                    				<li><span class="num">4. </span>구매자의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우 <em>(라벨이 떨어진 의류 또는 태그가 떨어진 명품관 상품인 경우)</em></li>
+                                    				<li><span class="num">5. </span>시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
+                                    				<li><span class="num">6. </span>고객주문 확인 후 상품제작에 들어가는 주문제작상품</li>
+                                    				<li><span class="num">7. </span>복제가 가능한 상품 등의 포장을 훼손한 경우 <em>(CD/DVD/GAME/도서의 경우 포장 개봉 시)</em></li>
+                                    				</ol>
+                                    			</dd>
+                                    			</dl>
+                                    		</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="bold-separator">
+                                        <span></span>
+                                    </div>
+                                    <div class="section-title">
+                                        <h3>오베리굿의 상품</h3>
+                                        <h4>선택하신 상품과 비슷한 상품</h4>
+                                        <div class="separator color-separator"></div>
+                                    </div>
+                                    <ul class="products">
+                                        <li class="product-cat-mains">
+                                            <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                            <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                            <ul class="product-cats">
+                                                <li><a href="#">Main Meals</a></li>
+                                                <li><a href="#">Hot Dishes</a></li>
+                                            </ul>
+                                            <div class="product-price">
+                                                <span>￦27</span>
+                                                <a href="a">장바구니</a>
+                                            </div>
+                                        </li>
+                                        <li class="product-cat-mains">
+                                            <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                            <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                            <ul class="product-cats">
+                                                <li><a href="#">Main Meals</a></li>
+                                                <li><a href="#">Hot Dishes</a></li>
+                                            </ul>
+                                            <div class="product-price">
+                                                <span>￦27</span>
+                                                <a href="#">장바구니</a>
+                                            </div>
+                                        </li>
+                                        <li class="product-cat-mains">
+                                            <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                            <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                            <ul class="product-cats">
+                                                <li><a href="#">Main Meals</a></li>
+                                                <li><a href="#">Hot Dishes</a></li>
+                                            </ul>
+                                            <div class="product-price">
+                                                <span>￦27</span>
+                                                <a href="#">장바구니</a>
+                                            </div>
+                                        </li>
+                                    </ul> -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#minusCart").click(function(e){
+			e.preventDefault();
+			var stat = $('#quantity').val();
+			var num = parseInt(stat, 10);
+			num--;
+			$('#quantity').val(num);
+		});
+		$('#plusCart').click(function(e){
+			e.preventDefault();
+			var stat = $('#quantity').val();
+			var num = parseInt(stat, 10);
+			num++;
+
+			$('#quantity').val(num);
+		});
+
+	  	$("#addCart").click(function(){
+		    $("#quantityForm").attr('action', 'addCart?productId={{detail.productId}}&price={{detail.price}}&quantity='+$("#quantity").val());
+		    $("#quantityForm").submit();
+		});
+
+  		$('#pay').click(function(){
+  			$.ajax({
+				url: "detail.html",
+				type: "POST",
+				data: {
+					productId : $(this).attr("productId"),
+					productName  : $(this).attr("productName"),
+					cost : $(this).attr("price")
+				},
+				success:function(data){
+					$(location).attr('href','/front/detail.html')
+					/* $('#row_num_{{item.cartId}}').remove() */
+				},
+				fail : function(err) {
+					alert("삭제 실패하였습니다.")
+				}
+			})
+  		});
+	})
+</script>
+
+{% endblock %}

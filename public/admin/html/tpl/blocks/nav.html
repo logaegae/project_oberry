@@ -1,0 +1,129 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">Navigation</span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.member.list">
+      <i class="glyphicon glyphicon-user icon text-primary-dker"></i>
+      <span class="font-bold">회원관리</span>
+    </a>
+  </li>
+  
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class=" icon-note"></i>
+      <span class="font-bold">게시판관리</span>
+    </a>
+    <ul class="nav nav-sub dk">
+    
+      <li class="nav-sub-header">
+        <a href>
+          <span>게시판 관리</span>
+        </a>
+      </li>
+      <!-- 
+      <li ui-sref-active="active">
+        <a ui-sref="app.board.list({boardId : 'event'})">
+          <span>이벤트</span>
+        </a>
+      </li>
+      -->
+      <li ui-sref-active="active">
+        <a ui-sref="app.board.list({boardId : 'news'})">
+          <!-- <b class="label bg-info pull-right">N</b> -->
+          <span>뉴스</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  
+  
+  
+
+<!--   <li ui-sref-active="active">
+    <a ui-sref="app.board.list({boardId : 'event'})">
+      <i class="glyphicon glyphicon-file icon text-info-dker"></i>
+      <span class="font-bold">이벤트</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.board.list({boardId : 'news'})">
+      <i class="glyphicon glyphicon-file icon text-info-dker"></i>
+      <span class="font-bold">뉴스</span>
+    </a>
+  </li> -->
+  
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class=" icon-note"></i>
+      <span class="font-bold">상품관리</span>
+    </a>
+    <ul class="nav nav-sub dk">
+    
+      <li class="nav-sub-header">
+        <a href>
+          <span>상품관리</span>
+        </a>
+      </li>
+      <!-- 
+      <li ui-sref-active="active">
+        <a ui-sref="app.board.list({boardId : 'event'})">
+          <span>이벤트</span>
+        </a>
+      </li>
+      -->
+      <li ui-sref-active="active">
+        <a ui-sref="app.product.list">
+          <!-- <b class="label bg-info pull-right">N</b> -->
+          <span>상품 관리</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.category.list">
+          <!-- <b class="label bg-info pull-right">N</b> -->
+          <span>카테고리 관리</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  
+  <li ui-sref-active="active">
+    <a ui-sref="app.order.list">
+      <!-- <i class="glyphicon glyphicon-usd icon text-success"></i> -->
+      <i class="icon-basket-loaded"></i>
+      <span class="font-bold">주문관리</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.contact.list">
+      <!-- <i class="glyphicon glyphicon-usd icon text-success"></i> -->
+      <i class="icon-basket-loaded"></i>
+      <span class="font-bold">1:1 문의관리</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.fcContact.list">
+      <!-- <i class="glyphicon glyphicon-usd icon text-success"></i> -->
+      <i class="icon-basket-loaded"></i>
+      <span class="font-bold">프렌차이즈 문의</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.fcRequest.list">
+      <!-- <i class="glyphicon glyphicon-usd icon text-success"></i> -->
+      <i class="icon-basket-loaded"></i>
+      <span class="font-bold">사업설명회 신청</span>
+    </a>
+  </li>
+
+</ul>
+<!-- / list -->

@@ -1,0 +1,110 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', '$state',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state) {
+
+		$http({
+			method : "POST",
+			url : "/admin/api/member/"+$stateParams.userId
+		}).success(function(data) {
+			console.log(data);
+			$scope.data = data;
+		});
+		
+		$scope.submit = function () {
+			$http({
+					method : "POST",
+					url : "/admin/api/member/"+$stateParams.userId+"/update",
+					data : $scope.data
+			}).success(function(data) {
+				console.log(data);
+				if(!$scope.alerts) {
+					$scope.alerts = [];
+				}
+
+				$scope.addAlert("저장되엇습니다.");
+			});
+
+		};
+
+		$scope.addAlert = function(msg) {
+			$scope.alerts.push({msg: msg, type : 'warning'});
+		};
+
+		$scope.closeAlert = function(index) {
+			$scope.alerts.splice(index, 1);
+		};
+
+	}]
+);
+
+</script>
+<div class="panel panel-default" ng-controller="myCtrl">
+	<div class="panel-heading">상세정보</div>
+	<div class="panel-body">
+		<form class="form-horizontal" method="get" ng-submit="submit()">
+			<div class="line line-dashed b-b line-lg pull-in"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">No</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">{{data.userId}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">성명</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="data.name"> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">이메일</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="data.email"> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">연락처</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="data.hp"> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">생년월일</label>
+				<div class="col-sm-10">
+		            <p class="input-group">
+		              <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="data.birthDay" is-open="opened1"  ng-click="opened1 = true" />
+		              <span class="input-group-btn">
+		                <button type="button" class="btn btn-default" ng-click="$event.stopPropagation(); opened1 = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+		              </span>
+		            </p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">가입일시</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">{{data.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">최근접속일시</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">{{data.lastLoginDate | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+				</div>
+			</div>
+			<div class="line line-dashed b-b line-lg pull-in"></div>
+			<div class="form-group">
+				
+				<div class="col-sm-5 col-sm-offset-2">
+					
+					<button onclick="javascript:history.back()" class="btn btn-default">목록</a>
+
+				</div> 
+				<div class="col-sm-5 text-right">
+					<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					<alert dismiss-on-timeout="2000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" class="m-t-sm text-right">{{alert.msg}}</alert>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,112 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+              <div class="content">
+                  <section class="parallax-section header-section">
+                      <div class="bg bg-parallax" style="background-image:url(images/bg/location.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                      <div class="overlay"></div>
+                      <div class="container">
+                          <h2>오베리굿 매장</h2>
+                          <!-- <h3>오베리굿 매장찾기</h3> -->
+                      </div>
+                  </section>
+                  <!--================= Section post's ================-->
+                  <section class="align-text">
+                      <div class="triangle-decor"></div>
+                      <div class="storcontent">
+                          <div class="storbox">
+                                <div class="stor_shop_su1">
+                                    <div class="shop_suga1">
+                                      <span>신림점</span>
+                                      <br>
+                                      <p>서울시 관악구 관천로22길 54&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AM 10:30 ~ PM 11:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1670-8797</p>
+
+                                      <button class="infomap1 storeView btn" type="button" onclick="map(37.4887727, 126.9253977,'store-map1')" style="display: block;">지도보기</button>
+                                      <button class="infomap1 storeClose btn" type="button" style="display: none; margin-bottom: 10px;">지도닫기</button>
+                                      <div id="store-map1" class="store-map" style="visibility:hidden; left:3000px"></div>
+                                      <div class="shop_line1"></div>
+                                    </div>
+                                </div>
+                                <div class="stor_shop_su2">
+                                    <div class="shop_suga2">
+                                      <span>낙성대점</span>
+                                      <br>
+                                      <p>서울시 관악구 인현6길 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AM 10:30 ~ PM 11:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1670-8797</p>
+
+                                      <button class="infomap1 storeView btn" type="button" onclick="map(37.4738809, 126.9657878,'store-map2')" style="display: block;">지도보기</button>
+                                      <button class="infomap1 storeClose btn" type="button" style="display: none;">지도닫기</button>
+                                      <div id="store-map2" class="store-map" style="visibility:hidden; left:3000px"></div>
+                                      <div class="shop_line1"></div>
+                                    </div>
+                                </div>
+                                <div class="stor_shop_su3">
+                                    <div class="shop_suga3">
+                                      <span>권선점</span>
+                                      <br>
+                                      <p>경기도 수원시 권선구 권선동 1296-1 나눔프라자 105호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AM 10:30 ~ PM 11:00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1670-8797</p>
+
+                                      <button class="infomap1 storeView btn" type="button" onclick="map(37.2510555, 127.0346730,'store-map3')" style="display: block;">지도보기</button>
+                                      <button class="infomap1 storeClose btn" type="button" style="display: none;">지도닫기</button>
+                                      <div id="store-map3" class="store-map" style="visibility:hidden; left:3000px"></div>
+                                      <div class="shop_line1"></div>
+                                    </div>
+                                </div>
+                          </div>
+                      </div>
+                  </section>
+                  <!-- section end -->
+              </div>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=209f190ddeb4e39197b41dd9d140e66b"></script>
+<script>
+map(37.4738809, 126.9657878,'store-map1')
+    function map(x,y,element){
+        var mapContainer = document.getElementById(element), // 지도를 표시할 div
+            mapOption = {
+                center: new daum.maps.LatLng(x,y), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new daum.maps.Map(mapContainer, mapOption);
+
+        var markerPosition  = new daum.maps.LatLng(x,y);
+
+        // 마커를 생성합니다
+        var marker = new daum.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+    }
+
+$(function(){
+
+    $('.storeView').on("click",function(){
+
+        $(this).css('display', 'none').next('button').css({
+            'display':'block',
+            'margin-bottom':'10px'
+            })
+
+
+        $(this).next().next('div').css({
+            'visibility':'visible',
+            'left':0,
+            'position':'relative'
+        })
+    })
+
+    $('.storeClose').on("click",function(){
+        $(this).css('display','none').parent().children('.storeView').css('display','block')
+
+        $(this).next('div').css({
+            'visibility':'hidden',
+            'left':'200px',
+            'position':'absolute'
+        })
+    })
+
+
+})
+</script>
+{% endblock %}

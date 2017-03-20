@@ -1,0 +1,63 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section" style="padding:220px 0 150px">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/slide_2.jpg);" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>로 그 인</h2>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========login-section ===================-->
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container login_container">
+                            <h3>오베리굿에 오신 여러분을 환영합니다.</h3>
+                            <section class="login_section">
+                                <form id="frm" class="form-horizontal" action="/front/auth/login" method="post">
+                                    <div class="form-group login_group">
+                                        <!-- <label for="inputEmail3" class="col-sm-2 control-label">Email</label> -->
+                                        <div class="">
+                                            <input type="text" class="form-control" name="userId" id="userId" placeholder="아이디" required="required" maxlength="20">
+                                        </div>
+                                      </div>
+                                    <div class="form-group login_group" style="margin:5px 5px 20px;">
+                                        <!-- <label for="inputPassword3" class="col-sm-2 control-label">Password</label> -->
+                                        <div class="">
+                                          <input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호" required="required"  maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="form-group btn_login login_group">
+                                        <div class="">
+                                          <!-- <a href="index.html" class="btn btn-default">로그인</a> -->
+                                          <button type="submit" name="button"  class="btn btn-default">로그인</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="search_join_section">
+                                    <span class="login_id_search">
+                                        <!-- <a href="" class="">아이디 찾기</a> -->
+                                        <button type="button" name="button" onclick="location.href='/front/search_id.html'">아이디 찾기</button>
+                                    </span>
+                                    <span class="login_dot"></span>
+                                    <span class="login_pw_search">
+                                        <!-- <a href="" class="">비밀번호 찾기</a> -->
+                                        <button type="button" name="button" onclick="location.href='/front/search_pw.html'">비밀번호 찾기</button>
+                                    </span>
+                                    <span class="login_dot"></span>
+                                    <span class="login_join">
+                                        <!-- <a href="join_clause.html" class="">회원가입</a> -->
+                                        <button type="button" name="button" onclick="location.href='join_clause.html'">회원가입</button>
+                                    </span>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- login-section end -->
+                </div>
+<script>
+
+</script>
+{% endblock %}

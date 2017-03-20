@@ -1,0 +1,124 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section mypage_section">
+                        <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>마이페이지</h2>
+                            <div class="mypage_nav">
+                                <div class="mypage_nav_holder">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            <a href="mypage.html" class="act-link">내정보</a>
+                                        </li>
+                                        <li>
+                                            <a href="mypage_info.html">정보수정</a>
+                                        </li>
+                                        <!-- <li>
+                                            <a href="cart.html">장바구니</a>
+                                        </li> -->
+                                        <li>
+                                            <a href="buy_info.html">구매정보</a>
+                                        </li>
+                                        <li>
+                                            <a href="inquiry.html">1:1문의</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========mypage -section ===================-->
+                    <section style="padding-top:70px">
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="reservation-form-holder">
+                                        <div class="reservation-form">
+                                            <div class="bold-separator personal_h3" style="margin:30px 0 65px">
+                                                <h3 class="">내정보</h3>
+                                            </div>
+                                            <!-- <h3 class="col-md-offset-2" style="text-align:left; margin-bottom:20px">회원정보입력</h3> -->
+                                            <form method="" action="" name="" id="reservation-form">
+                                                <div class="row info_box">
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">이름:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left">{{member.name}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">아이디:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left">{{member.userId}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">핸드폰번호:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left">{{member.hp}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">이메일주소:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left" style="word-break:break-all">{{member.email}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">주소:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left">{{member.address1}}</div>
+                                                      </div>
+                                                      <div class="col-md-offset-3 col-md-8 col-sm-offset-3 col-sm-7 col-xs-offset-4 col-xs-5 join_info_box_b join_info_box_c">
+                                                        <div class="mypage_infos table_left">{{member.address2}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <span class="base_info">우편번호:</span>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                        <div class="mypage_infos table_left">{{member.postCode}}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="join_a_tag">
+                                                    <!-- <a href="mypage_info.html" class="btn">정보수정</a> -->
+                                                    <button type="button" name="button" class="btn" onclick="location.href='mypage_info.html'">정보수정</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </div>
+{% endblock %}

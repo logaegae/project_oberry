@@ -1,0 +1,116 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.categoryId ? 'modify' : 'new';
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/category/"+$stateParams.categoryId
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/category/"+$stateParams.categoryId+"/update";
+			} else {
+				url = "/admin/api/category/insert";
+			}
+
+
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+				if(!$scope.alerts) {
+					$scope.alerts = [];
+				}
+
+				if($scope.mode == "modify") {
+					$scope.addAlert("저장되엇습니다.");
+				}else {
+					$location.path("/app/category/list");
+				}
+			});
+
+		};
+
+		$scope.addAlert = function(msg) {
+			$scope.alerts.push({msg: msg, type : 'warning'});
+		};
+
+		$scope.closeAlert = function(index) {
+			$scope.alerts.splice(index, 1);
+		};
+
+	    $scope.delete = function () {
+
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/category/"+$stateParams.categoryId+'/delete',
+				}).success(function(data) {
+					$location.path("/app/category/list");
+				});			
+
+	    	}
+
+	    }
+
+	}]
+);
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+<div class="panel panel-default" ng-controller="myCtrl">
+	<div class="panel-heading">상세정보</div>
+	<div class="panel-body">
+		<form class="form-horizontal" method="get" ng-submit="submit()">
+			<div class="line line-dashed b-b line-lg pull-in"></div>
+			<div class="form-group" ng-show="mode == 'modify'">
+				<label class="col-sm-2 control-label">No</label>
+				<div class="col-sm-10">
+					<span
+						class="help-block m-b-none">{{data.categoryId}}</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">카테고리명</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="data.categoryName" required="required"> 
+				</div>
+			</div>
+			<div class="line line-dashed b-b line-lg pull-in"></div>
+			<div class="form-group">
+				
+				<div class="col-sm-5 col-sm-offset-2">
+					
+					<button onclick="javascript:history.back()" class="btn btn-default m-r-sm">목록</a>
+					<button type="button" ng-click="delete()" class="btn btn-danger">삭제</button>
+					
+
+				</div>
+
+				<div class="col-sm-5 text-right">
+					<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					<alert dismiss-on-timeout="2000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" class="m-t-sm text-right">{{alert.msg}}</alert>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

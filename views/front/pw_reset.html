@@ -1,0 +1,99 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section mypage_section">
+                        <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>마이페이지</h2>
+                            <div class="mypage_nav">
+                                <div class="mypage_nav_holder">
+                                    <nav>
+                                        <ul>
+                                            <li>
+                                                <a href="mypage.html">내정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="mypage_info.html" class="act-link">정보수정</a>
+                                            </li>
+                                            <!-- <li>
+                                                <a href="cart.html">장바구니</a>
+                                            </li> -->
+                                            <li>
+                                                <a href="buy_info.html">구매정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="inquiry.html">1:1문의</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========mypage_info -section ===================-->
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="reservation-form-holder">
+                                        <div class="reservation-form">
+                                            <div class="bold-separator personal_h3" style="margin: 30px 0 65px">
+                                                <h3 class="">비밀번호 수정</h3>
+                                            </div>
+                                            <!-- <h3 class="col-md-offset-2" style="text-align:left; margin-bottom:20px">회원정보입력</h3> -->
+                                            <form method="post" action="resetPassword" id="reservation-form">
+                                            	<input type="hidden" name="initPwdUUID" value="{{query.initPwdUUID}}">
+                                            	<input type="hidden" name="userId" value="{{query.userId}}">
+                                                <div class="row info_box" id="info_box">
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <label class="base_info" for="userPw">비밀번호:</label>
+                                                        <!-- <span class="base_info">비밀번호:</span> -->
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                          <input name="pwd" type="password" class="mypage_input" id="userPw" onclick="" value="" placeholder="비밀번호변경" required="required">
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                    <div class="row">
+                                                      <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+                                                        <!-- <span class="base_info base_info_pw">비밀번호확인:</span> -->
+                                                        <label class="base_info base_info_pw" for="userPwConfirm">비밀번호확인:</label>
+                                                      </div>
+                                                      <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+                                                          <input name="pwd_check" type="password" class="mypage_input" id="userPwConfirm" onclick="" value="" placeholder="비밀번호변경확인" required="required">
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="join_a_tag">
+                                                    <!-- <a href="mypage.html" class="btn">확인</a> -->
+                                                    <button type="submit" name="button" class="btn">확인</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </div>
+<script type="text/javascript">
+
+$("#reservation-form").submit(function() {
+
+	if($("input[name='pwd']").val() != $("input[name='pwd_check']").val()) {
+		alert("비밀번호를 확인해 주십시요.");
+		return false;
+	}
+
+
+    return true;
+});
+</script>
+
+    {% endblock %}

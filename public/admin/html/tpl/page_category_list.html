@@ -1,0 +1,86 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.searchText	= $stateParams.searchText;
+		$scope.Math=Math;
+
+		$scope.loadData = function () {
+			$http({
+				method : "POST",
+				url : "/admin/api/category",
+				data : {
+					searchText : $stateParams.searchText
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		};
+
+		$scope.pageChanged = function (idx){
+			$location.path('/app/category/list').search({page: $scope.data.currentPage,searchText: $scope.searchText});
+		};
+
+		$scope.search = function () {
+			$location.path('/app/category/list').search({searchText: $scope.searchText});
+		}
+
+
+
+	}]
+);
+
+
+</script>
+
+<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+	<div class="panel-heading">목록</div>
+	<div class="row wrapper">
+		<div class="col-sm-12">
+			<div class="input-group">
+				<input type="text" class="input-sm form-control" ng-model="searchText"
+					placeholder="검색어를 입력하세요."> <span class="input-group-btn">
+					<button class="btn btn-sm btn-default" type="button" ng-click="search()">검색</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row wrapper" ng-show="data.totalCount">
+		<div class="col-sm-12 text-left">
+			총 {{data.totalCount}} 건
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped b-t b-light">
+			<thead>
+				<tr>
+					<th width="10%" class="text-center">No</th>
+					<th width="70" class="text-center">카테고리명</th>
+					<th width="20%" class="text-center">등록일시</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in data.list">
+					<td class="text-center">{{item.categoryId}}</td>
+					<td class="text-left"><a href="#/app/category/detail/{{item.categoryId}}">{{item.categoryName}}</a></td>
+					<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer class="panel-footer">
+		<div class="row">
+			<div class="col-sm-12 text-center">
+			    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-right">
+			    <a href="#/app/category/detail" class="btn btn-primary">등록</a>
+			</div>
+		</div>
+	</footer>
+</div>

@@ -1,0 +1,161 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <!--============== main_popup ===============-->
+                <div id="notice_pop">
+                  <div class="notice_pop notice_pc">
+                      <div class="popup_img">
+                        <img src="images/popup/notice_pc.jpg" alt="notice_pop_pc" usemap='#notice_pop_pc' />
+                        <map id="notice_pop_pc" name="notice_pop_pc">
+                          <area id="notice_pc_today" shape="rect" coords="365, 370, 500, 400" href="#" alt=""/>
+                          <area id="notice_pc_close" shape="rect" coords="445, 15, 485, 55" href="#" alt="" />
+                        </map>
+                      </div>
+                  </div>
+                  <div class="notice_pop nocice_mobile">
+                      <div class="popup_img">
+                        <img src="images/popup/notice_mobile2.jpg" alt="notice_pop_mobile" usemap='#notice_pop_mobile' />
+                        <map id="notice_pop_mobile" name="notice_pop_mobile">
+                          <area id="notice_mobile_today" shape="rect" coords="200, 175, 300, 200" href="#" alt=""/>
+                          <area id="notice_mobile_close" shape="rect" coords="265, 5, 295, 35" href="#" alt="" />
+                        </map>
+                      </div>
+                  </div>
+                </div>
+                <!-- main_popup end -->
+
+                <div class="content">
+                    <section class="parallax-section header-section">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/showping.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>오베리굿 쇼핑</h2>
+                            <div class="shop_nav">
+                                <div class="shop_nav_div">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            <a href="shop.html" {%if !query.categoryId%}class="act-link"{%endif%}>전체</a>
+                                        </li>
+
+                                        {%for category in categorys%}
+                                        <li>
+                                            <a href="shop.html?categoryId={{category.categoryId}}" {%if query.categoryId == category.categoryId%}class="act-link"{%endif%}>{{category.categoryName}}</a>
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                    	<div class="triangle-decor"></div>
+                        <div class="container">
+                            <div class="section-title">
+                                <h4 style="font-size:24px">쇼핑 정보</h4>
+                            </div>
+                            <div class="inner">
+                                <p>오베리굿에서 직접 재배한 국내산 유기농 블루베리로 만든 제품입니다. 이제 집에서 손쉽게 만나 보실 수 있습니다. 이 모든 제품은 오베리굿 농장에서 직접 재배한 신뢰 100% 의 제품입니다. </p>
+                            </div>
+                            <div class="bold-separator">
+                                <span></span>
+                            </div>
+<!--                             <select name="orderby" class="orderby">
+                                <option value="menu_order" selected="selected">Default sorting</option>
+                                <option value="popularity">Sort by popularity</option>
+                                <option value="rating">Sort by average rating</option>
+                                <option value="date">Sort by newness</option>
+                                <option value="price">Sort by price: low to high</option>
+                                <option value="price-desc">Sort by price: high to low</option>
+                            </select> -->
+
+                            <ul class="products">
+                                {% for item in list %}
+	                                <li class="product-cat-mains">
+	                                    <a href="product.html?productId={{item.productId}}"><img src="{{item.thumbPath}}" alt="" class="respimg"></a>
+	                                    <h4 class="product-title"><a href="product.html?productId={{item.productId}}">{{item.productName}}</a></h4>
+	                                    <!-- <ul class="product-cats">
+	                                        <li><a href="#">Main Meals</a></li>
+	                                        <li><a href="#">Hot Dishes</a></li>
+	                                    </ul> -->
+	                                    <div class="product-price">
+	                                        <span>￦{{item.price | number}}</span>
+	                                        <!-- <a href="addCart?productId={{item.productId}}&price={{item.price}}">장바구니에 담기</a> -->
+                                            <!-- <button type="button" name="button" onclick="location.href='addCart?productId={{item.productId}}&price={{item.price}}&quantity=1'">장바구니 담기</button> -->
+                                            <button type="button" name="button">￦{{item.price | number}}</button
+	                                    </div>
+	                                </li>
+                                {% endfor %}
+                             </ul>
+
+
+
+<!--                                 shop item
+                                <li class="product-cat-mains">
+                                    <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                    <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                    <ul class="product-cats">
+                                        <li><a href="#">Main Meals</a></li>
+                                        <li><a href="#">Hot Dishes</a></li>
+                                    </ul>
+                                    <div class="product-price">
+                                        <span>$27</span>
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </li>
+                                shop item
+                                <li class="product-cat-mains">
+                                    <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                    <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                    <ul class="product-cats">
+                                        <li><a href="#">Main Meals</a></li>
+                                        <li><a href="#">Hot Dishes</a></li>
+                                    </ul>
+                                    <div class="product-price">
+                                        <span>$27</span>
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </li>
+                                shop item
+                                <li class="product-cat-mains">
+                                    <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                    <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                    <ul class="product-cats">
+                                        <li><a href="#">Main Meals</a></li>
+                                        <li><a href="#">Hot Dishes</a></li>
+                                    </ul>
+                                    <div class="product-price">
+                                        <span>$27</span>
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </li>
+                                shop item
+                                <li class="product-cat-mains">
+                                    <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                    <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                    <ul class="product-cats">
+                                        <li><a href="#">Main Meals</a></li>
+                                        <li><a href="#">Hot Dishes</a></li>
+                                    </ul>
+                                    <div class="product-price">
+                                        <span>$27</span>
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </li>
+                                shop item
+                                <li class="product-cat-mains">
+                                    <a href="product.html"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+                                    <h4 class="product-title"><a href="product.html">Steak & Creamy Mash</a></h4>
+                                    <ul class="product-cats">
+                                        <li><a href="#">Main Meals</a></li>
+                                        <li><a href="#">Hot Dishes</a></li>
+                                    </ul>
+                                    <div class="product-price">
+                                        <span>$27</span>
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </li> -->
+
+                        </div>
+                    </section>
+                </div>
+{% endblock %}

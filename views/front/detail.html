@@ -1,0 +1,318 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                  <section class="parallax-section header-section mypage_section">
+                      <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                      <div class="overlay"></div>
+                      <div class="container">
+                          <h2>마이페이지</h2>
+                          <div class="mypage_nav">
+                              <div class="mypage_nav_holder">
+                              <nav>
+                                  <ul>
+                                      <li>
+                                          <a href="mypage.html">내정보</a>
+                                      </li>
+                                      <li>
+                                          <a href="mypage_info.html">정보수정</a>
+                                      </li>
+                                      <!-- <li>
+                                          <a href="cart.html" class="act-link">장바구니</a>
+                                      </li> -->
+                                      <li>
+                                          <a href="buy_info.html">구매정보</a>
+                                      </li>
+                                      <li>
+                                          <a href="inquiry.html">1:1문의</a>
+                                      </li>
+                                  </ul>
+                              </nav>
+                          </div>
+                          </div>
+                      </div>
+                  </section>
+                    <section>
+                    	<div class="triangle-decor"></div>
+                        <div class="container">
+							<div class="bold-separator personal_h3" style="margin:30px 0 65px">
+								<h3 class="">주문정보</h3>
+							</div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-border checkout-table">
+                                        <tbody>
+                                            <tr>
+                                                <th class="hidden-xs table_center">상품</th>
+                                                <th class="table_center">상품정보</th>
+                                                <th class="hidden-xs table_right">가격</th>
+                                                <th class="table_center">수량</th>
+                                                <th class="table_right">상품합계</th>
+                                            </tr>
+                                            {% set totalPrice = 0 %}
+                                            {% for item in list %}
+	                                            <tr id="row_num_{{item.cartId}}"  class="rownum">
+	                                                <td class="hidden-xs table_center">
+	                                                    <a href="#">{{item.userId}}<img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+	                                                </td>
+	                                                <td class="table_center">
+	                                                    <h5 class="product-name">{{item.productName}}</h5>
+	                                                </td>
+	                                                <td class="hidden-xs table_right">
+	                                                    <h5 class="order-money">{{item.price | number}}</h5>
+	                                                </td>
+	                                                <td class="table_center">
+	                                                    <h5 class="order-money">{{item.quantity | number}}</h5>
+	                                                </td>
+	                                                <td class="table_right">
+	                                                    <h5 class="order-money">{{(item.price*item.quantity) | number}}</h5>
+	                                                </td>
+	                                            </tr>
+                                            	{% set totalPrice += item.price*item.quantity %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- CART TOTALS  -->
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-offset-7">
+                                    <div class="cart-totals">
+                                        <h4>Totals</h4>
+                                        <table class="table table-border checkout-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>전체금액:</th>
+                                                    <td id="totalPrice">{{totalPrice|number}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /CART TOTALS  -->
+
+							<form id="order-info" method="post" action="/front/order">
+								<input type="hidden" id="orderId" name="orderId" />
+								<input type="hidden" id="impUid" name="impUid"/>
+								<input type="hidden" id=paymentAmt name="paymentAmt"/>
+								<input type="hidden" id="applyNum" name="applyNum"/>
+								<input type="hidden" id="paymentMethod" name="paymentMethod"/>
+								<input type="hidden" id="totalPrice" name="totalprice"/>
+
+								{% if list.length > 1  %}
+									<input type="hidden" id="orderName" name="orderName" value="{{list[0].productName}} 외 {{list.length}}건"/>
+								{% else %}
+									<input type="hidden" id="orderName" name="orderName" value="{{list[0].productName}}"/>
+								{% endif %}
+
+								{% for item in list %}
+									<input type="hidden" id="productId" name="productId" value="{{item.productId}}"/>
+									<input type="hidden" id="quantity"  name="quantity" value="{{item.quantity}}"/>
+								{% endfor %}
+
+                                <div class="bold-separator personal_h3" style="margin:60px 0 40px">
+    								<h3 class="">배송정보</h3>
+    							</div>
+								<fieldset>
+
+									{%set byyerName = ''%}
+									{%set buyerTel = ''%}
+									{%set buyerEmail = ''%}
+									{%set buyerAddr1 = ''%}
+									{%set buyerAddr2 = ''%}
+									{%set buyerPostCode = ''%}
+
+									{%set orderName = list[0].productName%}
+
+									{% if session.userInfo %}
+										{%set byyerName = session.userInfo.name%}
+										{%set buyerTel = session.userInfo.hp%}
+										{%set buyerEmail = session.userInfo.email%}
+										{%set buyerAddr1 = session.userInfo.address1%}
+										{%set buyerAddr2 = session.userInfo.address2%}
+										{%set buyerPostCode = session.userInfo.postCode%}
+									{% endif %}
+
+									<legend style="text-indent:-99999px;">배송정보</legend>
+									<div class="row info_box" id="info_box">
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+											<!-- <span class="base_info">이름:</span> -->
+											<label class="base_info" for="buyerName">이름:</label>
+										  </div>
+										  <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+											<input name="buyerName" type="text" class="mypage_input table_left" id="buyerName" onclick="" value="{{byyerName}}">
+										  </div>
+										</div>
+									  </div>
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+											<label class="base_info" for="buyerTel">핸드폰번호:</label>
+											<!-- <span class="base_info">핸드폰번호:</span> -->
+										  </div>
+										  <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+											  <input name="buyerTel" type="tel" class="mypage_input table_left" id="buyerTel" onclick="" value="{{buyerTel}}">
+										  </div>
+										</div>
+									  </div>
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+											<!-- <span class="base_info">이메일주소:</span> -->
+											<label class="base_info" for="buyerEmail">이메일주소:</label>
+										  </div>
+										  <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+											<!-- <textarea name="" class="mypage_input">abcdefg12345_abcdefg12345@naver.com</textarea> -->
+											<input name="buyerEmail" type="email" class="mypage_input table_left"  id="buyerEmail" onclick="" value="{{buyerEmail}}">
+										  </div>
+										</div>
+									  </div>
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+											<!-- <span class="base_info">주소:</span> -->
+											<label class="base_info" for="buyerAddr1">주소:</label>
+										  </div>
+										  <div class="col-md-6 col-sm-5 col-xs-9 join_info_box_d">
+											<!-- <textarea name="" class="mypage_input">서울특별시 마포구 아현동 트라펠리스 현대아파트 201동 1502호 235-61번지</textarea> -->
+											<input name="buyerAddr1" type="text" class="mypage_input table_left postcodify_address" id="buyerAddr1" onclick="" value="{{buyerAddr1}}" readonly="readonly">
+										  </div>
+                                          <div class="col-md-2 col-sm-3 col-xs-3 info_box_b ">
+                                            <button id="btnAddr"  class="btn btn_a" type="button" style="padding:10px 17px">주소찾기</button>
+                                          </div>
+										  <div class="col-md-offset-3 col-md-8 col-sm-offset-3 col-sm-7 col-xs-offset-4 col-xs-5 join_info_box_b join_info_box_c">
+											  <!-- <textarea name="" class="mypage_input">서울특별시 마포구 아현동 트라펠리스 현대아파트 201동 1502호 235-61번지</textarea> -->
+											  <input name="buyerAddr2" type="text" class="mypage_input table_left" id="buyerAddr2" onclick="" value="{{buyerAddr2}}">
+										  </div>
+										</div>
+									  </div>
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1 join_info_box_a">
+											<!-- <span class="base_info">우편번호:</span> -->
+											<label class="base_info" for="buyerPostCode">우편번호:</label>
+										  </div>
+										  <div class="col-md-8 col-sm-7 col-xs-5 join_info_box_b">
+											<input name="buyerPostCode" type="text" class="mypage_input table_left postcodify_postcode"id="buyerPostCode" onclick="" value="{{buyerPostCode}}" readonly="readonly">
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</fieldset>
+							</form>
+<!--
+                            <form id="order-info" method="post" action="/front/order">
+                                <div class="bold-separator personal_h3" style="margin:60px 0 10px">
+    								<h3 class="">결제정보</h3>
+    							</div>
+								<fieldset>
+									<legend style="text-indent:-99999px;">결제정보</legend>
+									<div class="row info_box" id="info_box">
+									  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+										<div class="row">
+										  <span class="buy_info_span">
+											<input name="buy_info" type="radio" class="" checked="checked" id="buy_info_1"  value="card">
+                                            <label for="buy_info_1">신용카드</label>
+                                          </span>
+                                          <span class="buy_info_span">
+											<input name="buy_info" type="radio" class="" id="buy_info_2"  value="account">
+                                            <label for="buy_info_2">가상계좌</label>
+                                          </span>
+										</div>
+									  </div>
+									</div>
+								</fieldset>
+							</form>
+ -->
+							<div class="join_a_tag" style="margin-top:30px">
+								<button id="btnPay" class="btn" type="button" style="padding:10px 40px">결제하기</button>
+							</div>
+
+
+						</div>
+					</section>
+				</div>
+				<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				<script>
+					$(function(){
+						$("#btnAddr").postcodifyPopUp();
+						$("#btnPay").click(function(){
+							
+							
+
+							if($("input[name='buyerName']").val() == "") {
+								alert("이름(수취인)을 입력해주세요.");
+								return;
+							}
+							
+							if($("input[name='buyerTel']").val() == "") {
+								alert("핸드폰 번호를 입력해주세요.");
+								return;
+							}
+							
+							if($("input[name='buyerAddr1']").val() == "") {
+								alert("배송지 주소를 입력해주세요.");
+								return;
+							}
+							if($("input[name='buyerAddr2']").val() == "") {
+								alert("배송지 주소를 입력해주세요.");
+								return;
+							}
+							if($("input[name='buyerPostCode']").val() == "") {
+								alert("배송지 주소를 입력해주세요.");
+								return;
+							}
+
+							var IMP = window.IMP;
+							IMP.init('imp89915322'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용.
+
+
+					        $("#orderId").val( 'merchant_' + new Date().getTime());
+					        $("#impUid").val('impuid');
+					        $("#paymentAmt").val('{{totalPrice}}');
+					        $("#applyNum").val('000000');
+					        $("#paymentMethod").val('card');
+
+
+							IMP.request_pay({
+							    pg : 'inicis', // version 1.1.0부터 지원. 'kakao':카카오페이,'inicis':이니시스, 'html5_inicis':이니시스(웹표준결제), 'nice':나이스, 'jtnet':jtnet, 'uplus':LG유플러스, 'danal':다날
+							    pay_method : 'card', // 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
+							    merchant_uid : $("#orderId").val(),
+							    name : $("#orderName").val(),
+							    amount : $("#paymentAmt").val(),
+							    buyer_email : $('#buyerEmail').val(),
+							    buyer_name : $('#buyerName').val(),
+							    buyer_tel : $('#buyerTel').val(),
+							    buyer_addr : $('#buyerAddr1').val()+$('#buyerAddr2').val(),
+							    buyer_postcode : $('#buyerPostCode').val()
+							}, function(rsp) {
+							    if ( rsp.success ) {
+
+							    	console.log(rsp);
+
+							        var impuid = rsp.imp_uid;
+							        var merchantuid = rsp.merchant_uid;
+							        var paidamount = rsp.paid_amount;
+							        var applynum = rsp.apply_num;
+
+							        $("#orderId").val(merchantuid);
+							        $("#impUid").val(impuid);
+							        $("#paidAmount").val(paidamount);
+							        $("#applyNum").val(applynum);
+
+							        $("#order-info").submit();
+
+							    } else {
+							    	alert(rsp.error_msg);
+							    }
+							});
+						})
+
+
+					})
+				</script>
+{% endblock %}

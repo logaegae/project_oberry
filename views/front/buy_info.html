@@ -1,0 +1,157 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section mypage_section">
+                        <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>마이페이지</h2>
+                            <div class="mypage_nav">
+                                <div class="mypage_nav_holder">
+                                    <nav>
+                                        <ul>
+                                            <li>
+                                                <a href="mypage.html">내정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="mypage_info.html">정보수정</a>
+                                            </li>
+                                            <li>
+                                                <a href="cart.html">장바구니</a>
+                                            </li>
+                                            <li>
+                                                <a href="buy_info.html" class="act-link">구매정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="inquiry.html">1:1문의</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========cart_confirm -section ===================-->
+                    <section>
+                    	<div class="triangle-decor"></div>
+                        <div class="container">
+                            <div class="bold-separator personal_h3" style="margin:30px 0 65px">
+                                <h3 class="">구매정보</h3>
+                            </div>
+                            <!-- CHECKOUT TABLE -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-border checkout-table">
+                                        <tbody>
+                                            <tr>
+                                                <th class="table_center pr-remove table_th_td" >주문번호 <div>(주문일자)</div></th>
+                                                <!-- <th class="table_center pr-remove">주문일자</th> -->
+                                                <th class="table_center pr-remove">상태</th>
+                                                <th class="hidden-xs" colspan="3" style="padding:10px; vertical-align:middle;">
+                                                    구매상품
+                                                </th>
+                                                <th class="table_right pr-remove">결제금액</th>
+                                            </tr>
+                                            {% for item in list %}
+	                                            <tr id="row_num_{{item.cartId}}"  class="rownum">
+	                                                <td class="table_center pr-remove table_th_td">
+	                                                    {{item.orderId}}
+	                                                    <div style="margin-top:5px">({{item.orderDate | date('Y-m-d')}})</div>
+	                                                </td>                                                
+	                                                <td class="table_center pr-remove">
+	                                                    <div>
+									                    {% if item.paymentStatus == '01' %}
+									                    	결제대기
+									                    {% elseif item.paymentStatus == '02' %}
+									                    	결제완료
+									                    {% elseif item.paymentStatus == '03' %}
+									                    	배송완료
+									                    {% elseif item.paymentStatus == '90' %}
+									                    	주문취소
+									                    {% endif %}
+
+														</div>
+	                                                </td>
+	                                                <td class="hidden-xs" colspan="3" style="padding:10px">
+	                                                
+	                                                    <table class="checkout-table" width='100%' height='100%' cellspacing='0' cellpadding='0'>
+	                                                        <tr>
+	                                                            <td class="table_center pr-remove table_th_td">상품</td>
+	                                                            <td class="table_right pr-remove ">가격</td>
+	                                                            <td class="table_center pr-remove ">수량</td>
+	                                                        </tr>
+	                                                        
+	                                                         {% for product in item.OrderProducts %}
+	                                                        <tr>
+	                                                            <td class="table_center pr-remove table_th_td">{{product.Product.productName}}</td>
+	                                                            <td class="table_right pr-remove ">{{product.cost | number}}</td>
+	                                                            <td class="table_center pr-remove">{{product.quantity | number}}</td>
+	                                                        </tr>
+	                                                         {% endfor %}
+	                                                    </table>
+	                                                </td>
+	                                                <td class="table_right pr-remove">
+	                                                    <h5 class="order-money">{{(item.paymentAmt) | number}}</h5>
+	                                                </td>
+	                                            </tr>
+                                            {% endfor %}
+                                   		</tbody>
+                                    </table>
+                            </div>
+
+
+		
+		
+		                    <!--pagination-->
+		                    
+		
+		                    <div class="content-pagination" style="text-align:center">
+			                    {% set totalPage = Math.floor(totalCount / pageSize) %}
+			                    {% if totalCount % pageSize > 0 %}
+			                    	{% set totalPage = totalPage + 1%}
+			                    {% endif %}
+			                    
+			                    
+			                    {% set num =  currentPage-1  %}
+			                    {% set startPage = Math.floor(num / 10) * 10 + 1%}
+								{% set endPage = startPage + 10 - 1 %}
+			                    {% if endPage  > totalPage %}
+			                    	{% set endPage = totalPage %}
+			                    {% endif %}
+		                    	{% if currentPage > 1 %}
+		                        	<a href="?page={{currentPage-1}}" class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+		                        {% else %}
+		                     	 	<a class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+		                        {% endif %}
+		                        
+		                        {% for i in Array(endPage-startPage+1) %}
+		                        	{% set page =  startPage + loop.index-1 %}
+		                       		{% if currentPage == page %}
+		                        		<a href="?page={{page}}" class="current-page transition">{{page}}</a>
+		                        	{% else %}
+		                        		<a href="?page={{page}}" class="transition">{{page}}</a>
+		                        	{% endif %}
+		                        {% endfor %}
+		                                                
+		                        {% if endPage < totalPage %}
+		                      		<a href="?page={{currentPage+1}}" class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+		                        {% else %}
+		                     		<a class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+		                        {% endif %}
+		                    </div>
+		                    
+                            
+                        </div>
+                    </section>
+                    <!-- section end -->
+
+                </div>
+
+                <script type="text/javascript" src="js/jquery.min.js"></script>
+                <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+                <script>
+
+                </script>
+    {% endblock %}

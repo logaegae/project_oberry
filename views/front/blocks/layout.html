@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <!--=============== basic  ===============-->
+        <meta charset="UTF-8">
+        <title>O Berry Good</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="robots" content="index, follow"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content="농업회사법인 오베리굿.
+직접재배한 블루베리를 맛있는 간식으로 블루베리 젤라또,호떡, 청,즙,원액,발효빵,스무디등, 소규모 카페창업 상담. "/>
+        <meta name="naver-site-verification" content="614d543219193240d93e8d9c7e3f1682f506a7fb"/>
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="오베리굿">
+        <meta property="og:url" content="http://oberrygood.co.kr/">
+        <meta property="og:description" content="농업회사법인 오베리굿.
+직접재배한 블루베리를 맛있는 간식으로 블루베리 젤라또,호떡, 청,즙,원액,발효빵,스무디등, 소규모 카페창업 상담. ">
+        <!-- <meta property="og:image" content="http://ohberry.i-make.kr/front/images/loader_b.png"> -->
+        <!--=============== css  ===============-->
+        <link type="text/css" rel="stylesheet" href="css/reset.css">
+        <link type="text/css" rel="stylesheet" href="css/plugins.css">
+        <link type="text/css" rel="stylesheet" href="css/style.css">
+        <link type="text/css" rel="stylesheet" href="css/color.css">
+        <link type="text/css" rel="stylesheet" href="/front/my-icons-collection/font/flaticon.css">
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="image_src" href="http://ohberry.i-make.kr/front/images/logo2_c.png" />
+        <script src="js/kakao.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+
+    </head>
+    <body>
+        <div class="loader"><img src="images/loader.png" alt=""></div>
+        <!--================= main start ================-->
+        <div id="main">
+            <!--=============== header ===============-->
+            <header>
+                <div class="header-inner">
+                    <div class="container">
+                        <!--navigation social links-->
+                        <div class="nav-social">
+                            <ul>
+
+
+                            	{% if session.userInfo %}
+                            		<li><a href="mypage.html">마이페이지</a></li>
+                            		<li style="color:white;"><a href="javascript:doLogout()">로그아웃</a></li>
+                            	{% else %}
+                            		<li style="color:white;"><a href="javascript:doLogin()">로그인</a></li>
+                            	{% endif %}
+
+                            </ul>
+                        </div>
+                        <!--logo-->
+                        <div class="logo-holder">
+                            <a href="index.html">
+                            <img src="images/logo.png" class="respimg logo-vis logo_a" alt="">
+                            <img src="images/logo2.png" class="respimg logo-notvis logo_a" alt="">
+                            <img src="images/loader.png" class="respimg logo-vis logo_b" alt="">
+                            <img src="images/loader_b.png" class="respimg logo-notvis logo_b" alt="">
+                            </a>
+                        </div>
+                        <!--Navigation -->
+                        <div class="nav-holder">
+                            <nav>
+
+                                <ul>
+                                    <li><a href="index.html" {% if menuUrl === 'index.html' %} class="act-link" {% endif %}>Home</a>
+                                    <li><a href="brandstory.html" {% if menuUrl === 'brandstory.html' %} class="act-link" {% endif %}>스토리</a>
+
+                                        <!-- Drop down
+                                        <ul>
+                                            <li><a href="#">Drop down </a></li>
+                                            <li><a href="#">Drop down </a></li>
+                                            <li><a href="#">Drop down </a></li>
+                                            <li><a href="#">Drop down </a></li>
+                                        </ul>     -->
+                                    </li>
+                                    <li><a href="menu.html" {% if menuUrl === 'menu.html' %} class="act-link" {% endif %}>메뉴</a></li>
+                                    <li><a href="gallery.html" {% if menuUrl === 'gallery.html' %} class="act-link" {% endif %}>갤러리</a></li>
+                                    <li><a href="shop.html" {% if menuUrl === 'shop.html' %} class="act-link" {% endif %}>쇼핑</a></li>
+                                    <!-- <li><a href="review.html" {% if menuUrl === 'reivew.html' %} class="act-link" {% endif %}>후기</a></li> -->
+                                    <li><a href="notice.html" {% if menuUrl === 'notice.html' %} class="act-link" {% endif %}>뉴스</a></li>
+                                    <li><a href="franchise.html" {% if menuUrl === 'franchise.html' %} class="act-link" {% endif %}>프렌차이즈문의</a></li>
+                                    <li><a href="searchshop.html" {% if menuUrl === 'searchshop.html' %} class="act-link" {% endif %}>매장찾기</a></li>
+                                    <!-- <li><a href="contact.html" {% if menuUrl === 'contact.html' %} class="act-link" {% endif %}>Contact</a></li> -->
+                                    <!-- <li><a href="blog.html" {% if menuUrl === 'blog.html' %} class="act-link" {% endif %}>Journal</a></li> -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!--header end-->
+
+
+            <!--=============== wrapper ===============-->
+            <div id="wrapper">
+
+            	{% block content %}{% endblock %}
+
+                <!--=============== footer ===============-->
+                <footer>
+                    <div class="footer-inner">
+                        <div class="container">
+                            <div class="row">
+                                <!--tiwtter-->
+                                <!-- <div class="col-md-4">
+                                    <div class="footer-info">
+                                        <h4>트위터</h4>
+                                        <div class="twitter-holder">
+                                            <div class="twitts">
+                                                <div class="twitter-feed">
+                                                    <div id="twitter-feed"></div>
+                                                    <a class="twitter-timeline" href="https://twitter.com/88Cestlavie" data-widget-id"cestlavie">Tweets by 88Cestlavie</a>
+                                                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                                </div>
+                                            </div>
+                                            <div class="customNavigation">
+                                                <a class="prev-slide transition"><i class="fa fa-long-arrow-left"></i></a>
+                                                <a class="twit-link transition" href="https://twitter.com/88Cestlavie" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                <a class="next-slide transition"><i class="fa fa-long-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--footer social links-->
+                                <div class="col-md-6">
+                                    <div class="footer-social">
+                                        <h3>찾아보기</h3>
+                                        <ul>
+                                            <li><a href="https://www.facebook.com/%EC%98%A4%EB%B2%A0%EB%A6%AC%EA%B5%BF-527108317447662/" target="_blank" ><i class="fa fa-facebook"></i></a></li>
+                                            <!-- <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li> -->
+                                            <li><a href="https://www.instagram.com/explore/tags/%EC%98%A4%EB%B2%A0%EB%A6%AC%EA%B5%BF/" target="_blank" ><i class="fa fa-instagram"></i></a></li>
+                                            <!-- <li><a href="#" target="_blank" ><i class="fa fa-pinterest"></i></a></li> -->
+                                            <!-- <li><a href="#" target="_blank" ><i class="fa fa-tumblr"></i></a></li> -->
+                                        </ul>
+                                        <br>
+                                        <br>
+                                        <div class="footer_infos ">
+                                            <p>창업에 대한
+                                            <br><strong>꼼꼼한 판단</strong>을 도와드립니다.</p>
+                                        <div class="separator color-separator"></div>
+                                            <p>전국 어디서나 국번없이</p>
+                                            <h3>1670-8797</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="footer-social">
+                                        <h3>창업문의 하기</h3>
+                                        <br>
+                                        <br/>
+                                        <div class="reservation-form-holder">
+                                            <div class="reservation-form">
+                                                <div id="message"></div>
+                                                <form method="post" action="writeFcContact" name="reservationform" id="reservation-form">
+                                                    <div class="row">
+                                                        <div class="col-md-9 col-md-offset-3 col-sm-10 col-sm-offset-2 col-xs-10 col-xs-offset-2">
+                                                            <p style="color:#FFF;">- 문자를 남겨주시면 바로 연락드리겠습니다. -</p>
+                                                            <br>
+                                                        </div>
+                                                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2" style="">
+                                                            <input name="name" type="text" id="name"  onClick="this.select()" placeholder="* 이름" style="background-color:#FFF" required="required">
+                                                            <input name="hp" type="text" id="phone" onClick="this.select()" placeholder="* 핸드폰번호" style="background-color:#FFF" required="required">
+                                                            <textarea name="content"  id="comments" row="5"onClick="this.select()" style="background-color:#FFF; height:95px" placeholder="문의사항"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit"  id="submit-res">바로상담</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- subscribe form-->
+                                <!-- <div class="col-md-4">
+                                    <div class="footer-info">
+                                        <h4>소식지 받기</h4>
+                                        <div class="subcribe-form">
+                                            <form id="subscribe">
+                                                <input class="enteremail" name="email" id="subscribe-email" placeholder="이메일 주소" spellcheck="false" type="text">
+                                                <button type="submit" id="subscribe-button" class="subscribe-button"><i class="fa fa-envelope"></i></button>
+                                                <label for="subscribe-email" class="subscribe-message"></label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="bold-separator">
+                                <span></span>
+                            </div>
+                            <!--footer contacts links -->
+                            <ul class="footer-contacts">
+                                <li style="color: #C59D5F; font-size:21px; font-weight:500;">가맹상담 1670-8797</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--to top / privacy policy-->
+                    <div class="to-top-holder">
+                        <div class="container">
+
+                            <address class="">
+                              <div class="footer_mark">
+                                <img src="images/mark.jpg" alt="">
+                              </div>
+                              <div style="text-align:right">
+                                <div>
+                                  <span class="footer_span">업체명 : 농업회사법인 오베리굿 주식회사 수원 권선동지점</span>
+                                  <span class="footer_span footer_divice">|</span>
+                                  <span class="footer_span">&nbsp;&nbsp;대표자 : 김선배</span>
+                                </div>
+                                <div>
+                        					<span class="footer_span">사업자등록번호 : 538-85-00384&nbsp;&nbsp;</span>
+                                  <span class="footer_span footer_divice">|</span>
+                                  <span class="footer_span">&nbsp;&nbsp; 통신판매업신고번호 : 제2016-경기군포-0084호</span>
+                                </div>
+                                <div>
+                        					<span class="footer_span">주소 : 경기도 수원시 권선구 동수원로 242번길 6, 105호(권선동, 나눔프라자)</span>
+                                </div>
+                                <div>
+                                  <span class="footer_span">이메일 : ungtang@oberrygood.co.kr&nbsp;&nbsp;</span>
+                                  <span class="footer_span footer_divice">|</span>
+                                  <span class="footer_span">&nbsp;&nbsp;전화번호 : 1670-8797</span>
+                                </div><div>
+                                  <span class="footer_span">업태 : 음식점&nbsp;&nbsp;</span>
+                                  <span class="footer_span footer_divice">|</span>
+                                  <span class="footer_span">&nbsp;&nbsp;종목 : 휴게음식점</span>
+                                </div>
+                              </div>
+                                <br>
+                                <p><span> &#169; oberrygood 2016 . </span> All rights reserved.</p>
+                      			</address>
+                            <div class="to-top"><span>맨 위로</span><i class="fa fa-angle-double-up"></i></div>
+                        </div>
+                    </div>
+                </footer>
+                <!--footer end -->
+            </div>
+            <!-- wrapper end -->
+        </div>
+        <!-- Main end -->
+        <!--=============== google map ===============-->
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <!--=============== scripts  ===============-->
+
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+
+		<script type='text/javascript'>
+			//<![CDATA[
+
+			function doLogin() {
+				location.href = "login.html";
+			}
+
+			function doLogout() {
+				location.href = "/front/auth/logout";
+			}
+			//]]>
+
+
+
+
+
+
+  		</script>
+</body>
+</html>

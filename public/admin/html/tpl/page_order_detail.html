@@ -1,0 +1,259 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.loadData = function () {
+			$http({
+				method : "POST",
+				url : "/admin/api/order/"+$stateParams.orderId
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});						
+		}
+		$scope.addAlert = function(msg) {
+			$scope.alerts.push({msg: msg, type : 'warning'});
+		};
+
+		$scope.closeAlert = function(index) {
+			$scope.alerts.splice(index, 1);
+		};
+
+		$scope.writeAnswer = function() {
+			$http({
+				method : "POST",
+				url : "/admin/api/order/"+$stateParams.orderId+"/answer",
+				data : {
+					orderId : $stateParams.orderId,
+					content : $scope.answerText,
+					type : "A"
+				}
+			}).success(function(data) {
+				$scope.loadData();
+				$scope.answerText = "";
+			});		
+		}
+
+		$scope.completeTransfer = function () {
+			var data = $scope.data;
+			data.paymentStatus = '03';
+			$http({
+				method : "POST",
+				url : "/admin/api/order/"+$stateParams.orderId+"/update",
+				data : data
+			}).success(function(data) {
+				$state.reload();
+			});		
+		}
+
+
+		$scope.cancelOrder = function () {
+			var data = $scope.data;
+			data.paymentStatus = '90';
+			$http({
+				method : "POST",
+				url : "/admin/api/order/"+$stateParams.orderId+"/update",
+				data : data
+			}).success(function(data) {
+				$state.reload();
+			});		
+		}
+
+
+	}]
+);
+
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div ng-controller="myCtrl" ng-init="loadData();">
+
+	<div class="row" >
+		<div class="col-lg-6">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">주문정보</div>
+				<div class="panel-body form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">No</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.orderId}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">주문명</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.orderName}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">주문일시</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.orderDate | date : 'yyyy-MM-dd HH:mm:ss'}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">결제금액</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.paymentAmt | number : fractionSize}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">결제번호</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.impUid}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">결제형식</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.paymentMethod}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">상태</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.paymentStatus | orderStatus}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-lg-6">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">배송지정보</div>
+				<div class="panel-body form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">수취인명</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.buyerName}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">연락처</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.buyerTel}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">우편번호</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.buyerPostCode}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">주소</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{data.buyerAddr}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">주문 상품정보</div>
+		<div class="panel-body">
+			
+			<div class="table-responsive">
+				<table class="table table-striped b-t b-light">
+					<thead>
+						<tr>
+							<th width="10%" class="text-center">No</th>
+							<th width="200" class="text-center">Thumb</th>
+							<th width="30%" class="text-left">상품명</th>
+							<th width="20%" class="text-right">수량</th>
+							<th width="20%" class="text-right">단가</th>
+							<th width="20%" class="text-right">금액</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in data.OrderProducts">
+							<td class="text-center">{{data.OrderProducts.length - $index}}</td>
+							<td class="text-center"><img ng-show=-"item.Product.thumbPath" src="{{item.Product.thumbPath}}" style="width:200px;height:auto;"></td>
+							<td class="text-left">{{item.Product.productName}}</td>
+							<td class="text-right">{{item.quantity | number : fractionSize}}</td>
+							<td class="text-right">{{item.cost | number : fractionSize}}</td>
+							<td class="text-right">{{item.quantity*item.cost | number : fractionSize}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+
+	<!-- 
+	<div class="panel panel-default">
+		<div class="panel-heading">주문 1:1 문의</div>
+		<div class="panel-body">
+
+			<div class="m-b" ng-repeat="item in data.OrderContacts">
+				<div ng-show="item.type != 'A'">
+					<a href class="pull-left thumb-sm avatar"><img src="img/a2.jpg" alt="..."></a>
+						<div class="m-l-xxl">
+						<div class="pos-rlt wrapper b b-light r r-2x">
+							<span class="arrow left pull-up"></span>
+							<p class="m-b-none" style="word-break: break-all;word-wrap: break-word;">{{item.content}}</p>
+						</div>
+						<small class="text-muted"><i class="fa fa-ok text-success"></i> {{item.registDate | date : 'yyyy-MM-dd HH:mm:ss'}}</small>
+					</div>
+				</div>
+				<div ng-show="item.type == 'A'">
+					<a href class="pull-right thumb-sm avatar"><img src="img/a3.jpg" class="img-circle" alt="..."></a>
+					<div class="m-r-xxl text-right">
+						<div class="pos-rlt wrapper b b-light  r r-2x">
+							<span class="arrow right pull-up"></span>
+							<p class="m-b-none text-right" style="word-break: break-all;word-wrap: break-word;">{{item.content}}</p>
+						</div>
+						<small class="text-muted text-right">{{item.registDate | date : 'yyyy-MM-dd HH:mm:ss'}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+        <footer class="panel-footer">
+
+          <div>
+            <a class="pull-left thumb-xs avatar"><img src="img/a3.jpg" class="img-circle" alt="..."></a>
+            <form class="m-b-none m-l-xl" ng-submit="writeAnswer();">
+              <div class="input-group w-full">
+                <textarea class="form-control" style="height:100px;" ng-model="answerText" required="required"></textarea>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="height:100px;">SEND</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </footer>
+	</div>
+	 -->
+	 
+	<div class="row">
+		<div class="col-sm-6 no-padding">
+			<button onclick="javascript:history.back()" class="btn btn-default m-r-sm">목록</button>
+			<button type="button" class="btn btn-danger" ng-click="cancelOrder();" ng-show="data.paymentStatus == '02'">주문 취소</button>
+		</div>
+
+		<div class="col-sm-6 no-padding text-right">
+			<button type="button" class="btn btn-primary" ng-click="completeTransfer();" ng-show="data.paymentStatus == '02'">배송 완료</button>
+			<alert dismiss-on-timeout="2000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" class="m-t-sm text-right">{{alert.msg}}</alert>
+		</div>
+	</div>
+
+
+</div>

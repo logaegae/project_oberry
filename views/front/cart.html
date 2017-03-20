@@ -1,0 +1,230 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                  <section class="parallax-section header-section mypage_section">
+                      <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                      <div class="overlay"></div>
+                      <div class="container">
+                          <h2>마이페이지</h2>
+                          <div class="mypage_nav">
+                              <div class="mypage_nav_holder">
+                              <nav>
+                                  <ul>
+                                      <li>
+                                          <a href="mypage.html">내정보</a>
+                                      </li>
+                                      <li>
+                                          <a href="mypage_info.html">정보수정</a>
+                                      </li>
+                                      <!-- <li>
+                                          <a href="cart.html" class="act-link">장바구니</a>
+                                      </li> -->
+                                      <li>
+                                          <a href="buy_info.html">구매정보</a>
+                                      </li>
+                                      <li>
+                                          <a href="inquiry.html">1:1문의</a>
+                                      </li>
+                                  </ul>
+                              </nav>
+                          </div>
+                          </div>
+                      </div>
+                  </section>
+
+                    <section>
+                    	<form action="detail.html" method="post">
+	                    	<div class="triangle-decor"></div>
+	                        <div class="container">
+	                            <!-- CHECKOUT TABLE -->
+	                            <div class="row">
+	                                <div class="col-sm-12">
+
+
+	                                    <table class="table table-border checkout-table">
+	                                        <tbody>
+	                                            <tr>
+	                                                <th class="hidden-xs table_center">상품</th>
+	                                                <th class="table_center">상품정보</th>
+	                                                <th class="hidden-xs table_right">가격</th>
+	                                                <th class="table_center">수량</th>
+	                                                <th class="table_right">상품합계</th>
+	                                                <th></th>
+	                                            </tr>
+	                                            {% set totalPrice = 0 %}
+	                                            {% for item in detail %}
+	                                            <tr id="row_num_{{item.cartId}}"  class="rownum">
+	                                                <td class="hidden-xs table_center">
+	                                                    <a href="product.html?productId={{item.productId}}"><img src="{{item.thumbPath}}" alt="" class="respimg"></a>
+	                                                </td>
+	                                                <td class="table_left">
+	                                                    <h5 class="product-name">{{item.Product.productName}}</h5>
+	                                                </td>
+	                                                <td class="hidden-xs table_right">
+	                                                    <h5 class="order-money">{{item.cost | number}}</h5>
+	                                                </td>
+	                                                <td class="table_center">
+	                                                	<input type="hidden" name="productId" value="{{item.productId}}">
+	                                                    <input type="number" name="quantity" value="{{item.quantity}}" cartId="{{item.cartId}}" productName= "{{item.Product.productName}}" price="{{item.cost}}" min="1" max="50" class="order-count" id="quantity">
+	                                                </td>
+	                                                <td class="table_right">
+	                                                    <h5 class="order-money">{{(item.cost*item.quantity) | number}}</h5>
+	                                                </td>
+	                                                <td class="pr-remove table_right" >
+	                                                    <!-- <a href="delete?cartId={{item.cartId}}" title="Remove"><i class="fa fa-times"></i></a> -->
+	                                                    <a title="Remove" cartId="{{item.cartId}}" ><i class="fa fa-times" ></i></a>
+	                                                </td>
+	                                            </tr>
+	                                            	{% set totalPrice += item.cost*item.quantity %}
+	                                            {% endfor %}
+	<!--                                             <tr>
+	                                                <td class="hidden-xs">
+	                                                    <a href="#"><img src="images/gallery/1.jpg" alt="" class="respimg"></a>
+	                                                </td>
+	                                                <td>
+	                                                    <h5 class="product-name">Coctail</h5>
+	                                                </td>
+	                                                <td class="hidden-xs">
+	                                                    <h5 class="product-title order-money">$23.00</h5>
+	                                                </td>
+	                                                <td>
+	                                                    <input type="number" name="" value="1" max="50" min="1" class="order-count">
+	                                                </td>
+	                                                <td>
+	                                                    <h5 class="order-money">$23.00</h5>
+	                                                </td>
+	                                                <td class="pr-remove">
+	                                                    <a href="#" title="Remove"><i class="fa fa-times"></i></a>
+	                                                </td> -->
+	                                            <!-- </tr> -->
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+	                            </div>
+	                            <!-- /CHECKOUT TABLE -->
+	                            <!-- COUPON -->
+	                            <div class="row">
+	                                <div class="coupon-holder">
+	                                    <div class="col-md-12">
+	                                        <button type="button" class="pull-right btn-uc" id="buttonSave">저장</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <!-- /COUPON -->
+	                            <!-- CART TOTALS  -->
+	                            <div class="row">
+	                                <div class="col-sm-5 col-sm-offset-7">
+	                                    <div class="cart-totals">
+	                                        <h4>Cart Totals</h4>
+	                                        <table class="table table-border checkout-table">
+	                                            <tbody>
+	                                                <tr>
+	                                                    <th>전체금액:</th>
+	                                                    <td id="totalPrice">{{totalPrice|number}}</td>
+	                                                </tr>
+	                                            </tbody>
+	                                        </table>
+	                                        <button type="submit" id="buttonBuy" class="btn btn-lg btn-block btn-round btn-d">구매하기</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <!-- /CART TOTALS  -->
+	                        </div>
+
+                        </form>
+                    </section>
+                </div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+<script>
+
+
+
+ 	$(document).ready(function(){
+
+ 		$(".pr-remove a").on('click', function(){
+ 			/* alert($(this).attr("cartId")); */
+ 			if(confirm("정말 삭제하시겠습니까?") == false) {
+ 				return;
+ 			}
+ 			$.ajax({
+ 				url: "delete",
+ 				type: "POST",
+ 				data: {
+ 					cartId : $(this).attr("cartId")
+ 				},
+ 				success:function(data){
+ 					location.reload();
+ 				},
+ 				fail : function(err) {
+ 					alert("삭제 실패하였습니다.")
+ 				}
+ 			})
+ 		});
+
+ 		$("form").submit(function () {
+
+     		if($("input[name='quantity']").length == 0) {
+     			alert("장바구니에 상품이 없습니다.")
+     			return false;
+     		}
+
+ 		});
+
+ 		$("input[name='quantity']").change(function () {
+
+ 			if($(this).val() == "") {
+ 				$(this).val("1");
+ 				return;
+ 			}
+ 			var totalPrice = 0;
+ 			$("input[name='quantity']").each(function () {
+ 				var price = parseInt($(this).attr("price"));
+ 				var quantity = parseInt($(this).val());
+ 				var amt = price * quantity;
+
+ 				totalPrice += amt;
+ 			});
+
+ 			$("#totalPrice").text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+ 		});
+
+
+     	$("#buttonSave").click(function(){
+
+
+			var cartList = [];
+
+	 		$("input[name='quantity']").each(function(){
+				cartList.push({
+					cartId : $(this).attr("cartId"),
+					quantity : $(this).val(),
+				});
+
+			});
+
+
+			$.ajax({
+				url: "cartUpdate",
+				type: "POST",
+				data: {
+					cartList : cartList
+				},
+				success:function(data){
+					location.reload();
+				},
+				fail : function(err) {
+					alert(err);
+				}
+
+			});
+
+
+
+ 		});
+
+
+ 	});
+
+</script>
+{% endblock %}

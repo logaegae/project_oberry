@@ -1,0 +1,36 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section" style="padding:220px 0 150px">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/slide_2.jpg);" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>알 림</h2>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========login-section ===================-->
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="">
+                                    <div class="confirm_text">
+                                        <h4 style="margin-bottom:15px">{{query.message}}</h4>
+                                        <div class="separator color-separator"></div>
+                                        <p>{{query.message2}}</p>
+                                    </div>
+                                    <div class="join_a_tag" style="padding:0; margin:0;">
+                                        <!-- <a href="login.html" class="btn">이전</a>
+                                        <a href="login.html" class="btn btn_white">홈으로</a> -->
+                                        <button type="button" name="button" class="btn " onclick="location.href='index.html'">홈으로</button>
+                                        <button type="button" name="button" class="btn btn_white" onclick="history.back();">이전</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- login-section end -->
+                </div>
+{% endblock %}

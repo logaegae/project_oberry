@@ -1,0 +1,52 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section" style="padding:220px 0 150px">
+                        <div class="bg bg-parallax" style="background-image:url(images/bg/slide_2.jpg);" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>아이디 찾기</h2>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========search_id-section ===================-->
+                    <section>
+                        <div class="triangle-decor"></div>
+                        <div class="container">
+                            <section class="join_section">
+                                <div class="reservation-form-holder">
+                                        <div class="reservation-form">
+                                            <div class="bold-separator personal_h3" style="margin: 30px 0 65px">
+                                                <h3 class="">아이디 찾기</h3>
+                                            </div>
+                                            <!-- <h3 class="col-md-offset-2" style="text-align:left; margin-bottom:20px">회원정보입력</h3> -->
+                                            <form method="post" action="/front/search_confirm.html" id="reservation-form">
+                                                <div class="row info_box">
+                                                    <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                        <!--name-->
+                                                        <input name="name" type="text" id="userName" onclick="" value="" placeholder="이름" required="required">
+                                                    </div>
+                                                    <div class="col-md-4 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12">
+                                                        <!--phone-->
+                                                        <label for="userPhone">
+                                                        <input name="hp" type="tel" id="userPhone" onclick="" value="" placeholder="핸드폰번호 (*번호입력시 -는 빼주세요)" required="required"  maxlength="20">
+                                                        *가입시 입력하신 전화번호를 입력하셔야 합니다.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="join_a_tag">
+                                                    <!-- <a href="join_confirm.html" class="btn">다음</a> -->
+                                                    <button type="submit" class="btn">다음</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- ./search_id end -->
+                </div>
+<script>
+
+</script>
+{% endblock %}

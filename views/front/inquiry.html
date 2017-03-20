@@ -1,0 +1,118 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+                <div class="content">
+                    <!--=============== parallax section  ===============-->
+                    <section class="parallax-section header-section mypage_section">
+                        <div class="bg bg-parallax" style="background-image:url(images/mypage.jpg)" data-top-bottom="transform: translateY(300px);" data-bottom-top="transform: translateY(-300px);"></div>
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <h2>마이페이지</h2>
+                            <div class="mypage_nav">
+                                <div class="mypage_nav_holder">
+                                    <nav>
+                                        <ul>
+                                            <li>
+                                                <a href="mypage.html">내정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="mypage_info.html">정보수정</a>
+                                            </li>
+                                            <!-- <li>
+                                                <a href="cart.html">장바구니</a>
+                                            </li> -->
+                                            <li>
+                                                <a href="buy_info.html">구매정보</a>
+                                            </li>
+                                            <li>
+                                                <a href="inquiry.html" class="act-link">1:1문의</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--section end-->
+                    <!-- ===========inquiry-section ===================-->
+                    <section>
+                    	<div class="triangle-decor"></div>
+                        <div class="container">
+                            <div class="bold-separator personal_h3" style="margin:30px 0 65px">
+                                <h3 class="">1:1문의</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="defualt-table">
+                                        <table class="table table-border checkout-table inquiry_table">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th>#</th> -->
+                                                    <th class="hidden-xs">작성일</th>
+                                                    <th class="table_left">제목</th>
+                                                    <th>답변</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for item in list %}
+                                                <tr>
+                                                    <!-- <td>1</td> -->
+                                                    <td class="hidden-xs">{{item.registDate | date('Y-m-d')}}</td>
+                                                    <td class="table_left"><a href="inquiry_answer.html?contactId={{item.contactId}}">{{item.title}}</a></td>
+                                                    <td>
+                                                    	{% if item.replyYn == 'Y' %}
+                                                    		완료
+                                                    	{% else %}
+                                                    		대기중
+                                                    	{% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="join_a_tag inquiry_button inquiry_personal_button">
+                                        <a href="inquiry_personal.html" class="btn">글쓰기</a>
+                                    </div>
+
+                                    <!--pagination-->
+                                    <div class="content-pagination" style="text-align:center">
+					                    {% set totalPage = Math.floor(totalCount / pageSize) %}
+					                    {% if totalCount % pageSize > 0 %}
+					                    	{% set totalPage = totalPage + 1%}
+					                    {% endif %}
+
+					                    {% set num =  currentPage-1  %}
+					                    {% set startPage = Math.floor(num / 10) * 10 + 1%}
+										{% set endPage = startPage + 10 - 1 %}
+					                    {% if endPage  > totalPage %}
+					                    	{% set endPage = totalPage %}
+					                    {% endif %}
+				                    	{% if currentPage > 1 %}
+				                        	<a href="?page={{currentPage-1}}" class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+				                        {% else %}
+				                     	 	<a class="prevposts-link transition"><i class="fa fa-chevron-left"></i></a>
+				                        {% endif %}
+
+				                        {% for i in Array(endPage-startPage+1) %}
+				                        	{% set page =  startPage + loop.index-1 %}
+				                       		{% if currentPage == page %}
+				                        		<a href="?page={{page}}" class="current-page transition">{{page}}</a>
+				                        	{% else %}
+				                        		<a href="?page={{page}}" class="transition">{{page}}</a>
+				                        	{% endif %}
+				                        {% endfor %}
+
+				                        {% if endPage < totalPage %}
+				                      		<a href="?page={{currentPage+1}}" class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+				                        {% else %}
+				                     		<a class="nextposts-link transition"><i class="fa fa-chevron-right"></i></a>
+				                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+{% endblock %}
